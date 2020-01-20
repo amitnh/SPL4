@@ -144,6 +144,9 @@ class _Repository:
         self.coffee_stands = _Coffee_stands(self._conn)
         self.activities = _Activities(self._conn)
 
+    def return_conn(self):
+        return self._conn
+
     def _close(self):
         self._conn.commit()
         self._conn.close()
