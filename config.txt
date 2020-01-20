@@ -12,4 +12,4 @@ P, 9002, Water, 7.0
 P, 9003, Magnum, 8.5
 P, 9004, Salad, 21.0
 P, 9005, Cafe & Mahafe, 11.5
-P, 9006, Chocolate, 8.5
+P, 9006, Chocolate, 9.5
