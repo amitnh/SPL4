@@ -7,6 +7,7 @@ from printdb import printdb
 def action():
     # action = open(sys.argv[1], "r")
 
+    print()#$%#$%^@^$%^#$%^CHECK IF NEEDED
 
 
     action = open("action.txt", "r")
@@ -42,5 +43,49 @@ def action():
         print(str(emp[1]) + ", " + str(emp[2])+ ", " +repo.coffee_stands.find(emp[3]).location+ ", " +str(totalincome[i]))
         i += 1
 
+    print()
+    print("Activities")
+    cursor.execute("""
+            SELECT a.date, p.description , p.quantity, e.name, s.name
+            FROM activities a 
+            JOIN products p ON p.id = a.product_id
+            LEFT JOIN  suppliers s ON a.activator_id = s.id
+            LEFT JOIN  employees e ON  a.activator_id = e.id
+            """)
+    lines = cursor.fetchall()
+    totalincome.append(0)
+    for line in lines:
+        print(line)
 
-    # print("Activities")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
