@@ -8,13 +8,15 @@ def print_table(table):
     cursor = _conn.cursor()
     cursor.execute('SELECT * FROM ' + table)
     list1 = cursor.fetchall()
-    print(format(table) + ':')
+    print(format(table).capitalize())
     for item in list1:
         print(item)
 
-
 def printdb():
-    print_table("suppliers")
+    print_table("activities")
+    print_table("coffee_stands")
     print_table("employees")
     print_table("products")
-    print_table("coffee_stands")
+    print_table("suppliers")
+    print_table("employees report")
+

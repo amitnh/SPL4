@@ -98,6 +98,12 @@ class _Products:
         """, [id]).fetchone()
         return Product(*foundprod)
 
+    def update(self,id,quantity):
+        self._conn.execute("""
+                            UPDATE products SET quantity = (?)
+                            WHERE id = (?)
+                    """,[quantity,id])
+
 
 class _Coffee_stands:
     def __init__(self, conn):
@@ -158,7 +164,7 @@ class _Repository:
             id INTEGER PRIMARY KEY,
             name TEXT NOT NULL,
             salary REAL NOT NULL,
-            coffee_stand INTEGER REFERENCES coffee_stand(id)
+            coffee_stand INTEGER REFERENCES coffee_stands(id)
         );
 
         CREATE TABLE suppliers (
@@ -181,7 +187,7 @@ class _Repository:
         );
         
         CREATE TABLE activities (
-            product_id INTEGER REFERENCES Product(id),
+            product_id INTEGER REFERENCES products(id),
             quantity INTEGER NOT NULL,
             activator_id INTEGER NOT NULL,
             date DATE NOT NULL
