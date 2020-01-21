@@ -1,8 +1,7 @@
 import sys
 
 from Persistence_Layer import *
-from action import action
-from printdb import printdb
+
 
 repo.create_tables()
 
@@ -18,8 +17,6 @@ for line in toadd:
         repo.employees.insert(Employee(line[1], line[2], line[3], line[4]))
     elif line[0] == 'P':
         repo.products.insert(Product(line[1], line[2], line[3], 0))
-
-action()
 
 
 

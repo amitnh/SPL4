@@ -156,7 +156,7 @@ class _Repository:
     def _close(self):
         self._conn.commit()
         self._conn.close()
-        os.remove('moncafe.db')  # DELETE THIS,ONLY FOR DEBUG!!@!#$^#$^@(tral)
+        # os.remove('moncafe.db')  # DELETE THIS,ONLY FOR DEBUG!!@!#$^#$^@(tral)
 
     def create_tables(self):
         self._conn.executescript("""
