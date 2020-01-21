@@ -140,6 +140,7 @@ class _Activities:
         return [Activity(*row) for row in all]
 
 
+
 # The Repository
 class _Repository:
     def __init__(self):
@@ -194,7 +195,42 @@ class _Repository:
         );
 
         """)
+    def activities_report(self):
+        cursor = self._conn.cursor()
+        cursor.execute("""
+                SELECT a.date, p.description , p.quantity, e.name, s.name
+                FROM activities a 
+                JOIN products p ON p.id = a.product_id
+                LEFT JOIN  suppliers s ON a.activator_id = s.id
+                LEFT JOIN  employees e ON  a.activator_id = e.id
+                ORDER BY a.date
+                """)
+        lines = cursor.fetchall()
+        return lines
 
+    def employees_report(self):
+        cursor = self._conn.cursor()
+        cursor.execute("""
+        SELECT * FROM employees ORDER BY employees.name
+        """)
+        employees = cursor.fetchall()
+        i = 0
+        totalincome = []
+        for emp in employees:
+            cursor.execute("""
+            SELECT a.product_id, a.quantity , p.price
+            FROM activities a, products p
+            WHERE a.activator_id = ? AND a.product_id = p.id 
+            """, [emp[0]])
+            lines= cursor.fetchall()
+            if lines==[]:
+                print(str(emp[1]) + ", " + str(emp[2]) + ", " + repo.coffee_stands.find(emp[3]).location + ", " + str(
+                    0))
+            for line in lines:
+                totalincome.append(0)
+                totalincome[i] += line[1] * -line[2]
+                print(str(emp[1]) + ", " + str(emp[2]) + ", " + repo.coffee_stands.find(emp[3]).location + ", " + str(totalincome[i]))
+                i += 1
 
 
 # the repository singleton

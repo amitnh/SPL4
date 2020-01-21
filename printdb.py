@@ -12,11 +12,19 @@ def print_table(table):
     for item in list1:
         print(item)
 
-def printdb():
-    print_table("activities")
-    print_table("coffee_stands")
-    print_table("employees")
-    print_table("products")
-    print_table("suppliers")
-    print_table("employees report")
 
+print_table("activities")
+print_table("coffee_stands")
+print_table("employees")
+print_table("products")
+print_table("suppliers")
+
+print()
+print("Employees report")
+repo.employees_report()
+
+print()
+print("Activities")
+lines = repo.activities_report()
+for line in lines:
+    print(line)
