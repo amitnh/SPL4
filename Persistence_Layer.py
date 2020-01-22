@@ -135,9 +135,11 @@ class _Activities:
         c = self._conn.cursor()
         all = c.execute("""
             SELECT product_id, quantity, activator_id, date FROM activities
+            ORDER BY date
+
         """).fetchall()
 
-        return [Activity(*row) for row in all]
+        return [*all]
 
 
 
@@ -198,7 +200,7 @@ class _Repository:
     def activities_report(self):
         cursor = self._conn.cursor()
         cursor.execute("""
-                SELECT a.date, p.description , p.quantity, e.name, s.name
+                SELECT a.date, p.description , a.quantity, e.name, s.name
                 FROM activities a 
                 JOIN products p ON p.id = a.product_id
                 LEFT JOIN  suppliers s ON a.activator_id = s.id
@@ -214,7 +216,6 @@ class _Repository:
         SELECT * FROM employees ORDER BY employees.name
         """)
         employees = cursor.fetchall()
-        i = 0
         totalincome = []
         for emp in employees:
             cursor.execute("""
@@ -223,14 +224,12 @@ class _Repository:
             WHERE a.activator_id = ? AND a.product_id = p.id 
             """, [emp[0]])
             lines= cursor.fetchall()
-            if lines==[]:
-                print(str(emp[1]) + ", " + str(emp[2]) + ", " + repo.coffee_stands.find(emp[3]).location + ", " + str(
-                    0))
-            for line in lines:
-                totalincome.append(0)
-                totalincome[i] += line[1] * -line[2]
-                print(str(emp[1]) + ", " + str(emp[2]) + ", " + repo.coffee_stands.find(emp[3]).location + ", " + str(totalincome[i]))
-                i += 1
+            totinc = 0
+            if lines != []:
+                for line in lines:
+                    totinc=totinc+(line[1] * -line[2])
+            print(str(emp[1]) + ", " + str(emp[2]) + ", " + repo.coffee_stands.find(emp[3]).location + ", " + str(
+                    totinc))
 
 
 # the repository singleton

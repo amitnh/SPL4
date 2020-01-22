@@ -6,7 +6,11 @@ from Persistence_Layer import *
 def print_table(table):
     _conn = repo.return_conn()
     cursor = _conn.cursor()
-    cursor.execute('SELECT * FROM ' + table)
+    if table == "activities":
+        cursor.execute('SELECT * FROM ' + table + ' ORDER BY date')
+    else:
+        cursor.execute('SELECT * FROM ' + table + ' ORDER BY id')
+
     list1 = cursor.fetchall()
     print(format(table).capitalize())
     for item in list1:
@@ -26,5 +30,6 @@ repo.employees_report()
 print()
 print("Activities")
 lines = repo.activities_report()
-for line in lines:
-    print(line)
+if lines!=[]:
+    for line in lines:
+        print(line)
