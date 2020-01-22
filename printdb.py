@@ -27,9 +27,9 @@ print()
 print("Employees report")
 repo.employees_report()
 
-print()
-print("Activities")
 lines = repo.activities_report()
 if lines!=[]:
+    print()
+    print("Activities")
     for line in lines:
         print(line)
